@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/eureka-server-8761/eureka-server-8761.iml" filepath="$PROJECT_DIR$/eureka-server-8761/eureka-server-8761.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eureka-server-8762/eureka-server-8762.iml" filepath="$PROJECT_DIR$/eureka-server-8762/eureka-server-8762.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gateway-9002/gateway-9002.iml" filepath="$PROJECT_DIR$/gateway-9002/gateway-9002.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rmq-esb-common/rmq-esb-common.iml" filepath="$PROJECT_DIR$/rmq-esb-common/rmq-esb-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rmq-pub-8080/rmq-pub-8080.iml" filepath="$PROJECT_DIR$/rmq-pub-8080/rmq-pub-8080.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rmq-sub-8082/rmq-sub-8082.iml" filepath="$PROJECT_DIR$/rmq-sub-8082/rmq-sub-8082.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rocketmq-esb.iml" filepath="$PROJECT_DIR$/rocketmq-esb.iml" />
+    </modules>
+  </component>
+</project>

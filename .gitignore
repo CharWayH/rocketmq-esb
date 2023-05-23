@@ -1,0 +1,6 @@
+# Project exclude paths
+/eureka-server-8761/target/
+/eureka-server-8762/target/
+/rmq-esb-common/target/
+/rmq-pub-8080/target/
+/rmq-sub-8082/target/

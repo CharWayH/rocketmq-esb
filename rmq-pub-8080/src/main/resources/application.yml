@@ -1,0 +1,28 @@
+server:
+  port: 8080 # 后期该微服务多实例，端⼝从8080递增（10个以内）
+Spring:
+  application:
+    name: rmq-pub
+# 注册到Eureka注册中心
+eureka:
+  client:
+    service-url:
+      # 注册到集群，就把Eureka Server地址用逗号分割即可
+      defaultZone: http://eurekaservera:8761/eureka/,http://eurekaserverb:8762/eureka/
+  instance:
+    prefer-ip-address: true #⾃定义实例显示格式，加上版本号，便于多版本管理，注意是ip-address，早期版本是ipAddress
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}:@project.version@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
+# rocketMQ配置
+rocketmq:
+  # nameserver地址
+  name-server: node1:9876
+  # 生产组名称
+  producer:
+    group: producer_grp_02

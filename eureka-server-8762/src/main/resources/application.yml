@@ -1,0 +1,17 @@
+#Eureka server服务端⼝
+server:
+  port: 8762
+spring:
+  application:
+    name: eureka-server # 应⽤名称，会在Eureka中作为服务的id标识（serviceId）
+eureka:
+  instance:
+    hostname: EurekaServerB
+  client:
+    service-url: # 客户端与EurekaServer交互的地址，如果是集群，也需要写其它Server的地址
+      # 集群模式下，如果有更多实例，用逗号做分隔符即可
+      defaultZone: http://EurekaServerA:8761/eureka
+      # 下面为单机版配置
+      # defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    register-with-eureka: true # ⾃⼰就是服务不需要注册⾃⼰, 集群模式下可以改成true
+    fetch-registry: true #⾃⼰就是服务不需要从Eureka Server获取服务信息,默认为true，置为false
