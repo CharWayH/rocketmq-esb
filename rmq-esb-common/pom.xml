@@ -52,11 +52,11 @@
             <version>1.10</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.ctrip.framework.apollo</groupId>
-            <artifactId>apollo-client-config-data</artifactId>
-            <version>1.9.1</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.ctrip.framework.apollo</groupId>-->
+            <!--<artifactId>apollo-client-config-data</artifactId>-->
+            <!--<version>1.9.1</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>

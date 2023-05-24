@@ -8,7 +8,7 @@ eureka:
   client:
     service-url:
       # 注册到集群，就把Eureka Server地址用逗号分割即可
-      defaultZone: http://eurekaservera:8761/eureka/,http://eurekaserverb:8762/eureka/
+      defaultZone: http://192.168.1.103:8761/eureka/,http://192.168.1.103:8762/eureka/
   instance:
     prefer-ip-address: true #⾃定义实例显示格式，加上版本号，便于多版本管理，注意是ip-address，早期版本是ipAddress
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}:@project.version@
@@ -17,12 +17,23 @@ management:
     web:
       exposure:
         include: "*"
-
+app:
+  id: rmq-esb
+#apollo:
+#  # 环境配置中心地址(Euraka)
+#  meta: http://192.168.1.184:8080
+#  bootstrap:
+#    enabled: true
+#    namespaces: application
+#    # 将配置提前到日志初始化之前
+#    eagerLoad:
+#      enabled: true
+#  cache-dir: ~/opt/data
 
 # rocketMQ配置
 rocketmq:
   # nameserver地址
-  name-server: node1:9876
+  name-server: 192.168.1.182:9876
   # 生产组名称
   producer:
     group: producer_grp_02

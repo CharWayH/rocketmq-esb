@@ -24,9 +24,9 @@ public class PubTest1 {
             producer.start();
             for (int i = 0; i < 50; i++) {
                 producer.setSendMsgTimeout(10000000);
-                SendResult result = producer.send(new Message("PS10001", "hello".getBytes(RemotingHelper.DEFAULT_CHARSET)));
+                SendResult result = producer.send(new Message("PS10001", ("hello"+i).getBytes(RemotingHelper.DEFAULT_CHARSET)));
                 System.out.println("发送完成");
-                System.out.println(result);
+                System.out.println(result.getSendStatus());
             }
             producer.shutdown();
 

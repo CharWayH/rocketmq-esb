@@ -1,5 +1,6 @@
 package com.charwayh.util;
 
+import com.charwayh.entity.MessageResult;
 import org.apache.rocketmq.client.exception.MQBrokerException;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
@@ -27,16 +28,24 @@ public class RmqUtils {
         return rmqUtils;
     }
 
-    public void sendMsg(String producerGroup, String topic, String msg) {
+    /**
+     * 发送消息
+     * @param producerGroup
+     * @param topic
+     * @param msg
+     */
+    public MessageResult sendMsg(String producerGroup, String topic, String msg) {
         DefaultMQProducer producer = new DefaultMQProducer(producerGroup);
         // 指定nameserver地址
         producer.setNamesrvAddr("192.168.1.182:9876");
+        MessageResult messageResult = new MessageResult();
         try {
             producer.start();
             producer.setSendMsgTimeout(10000000);
-            SendResult result = producer.send(new Message(topic, msg.getBytes(RemotingHelper.DEFAULT_CHARSET)));
+            SendResult sendResult = producer.send(new Message(topic, msg.getBytes(RemotingHelper.DEFAULT_CHARSET)));
             System.out.println("发送完成");
-            System.out.println(result);
+            messageResult.setMessageId(sendResult.getMsgId());
+            messageResult.setResult(sendResult.getSendStatus().toString());
         } catch (
                 MQClientException e) {
             e.printStackTrace();
@@ -54,5 +63,6 @@ public class RmqUtils {
         } finally {
             producer.shutdown();
         }
+        return messageResult;
     }
 }

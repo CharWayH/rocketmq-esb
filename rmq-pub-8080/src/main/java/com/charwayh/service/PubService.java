@@ -1,9 +1,12 @@
 package com.charwayh.service;
 
+import com.alibaba.fastjson.JSON;
+import com.charwayh.entity.MessageResult;
 import com.charwayh.util.RmqUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,11 +21,18 @@ public class PubService {
     /**
      * 推送消息
      */
-    public void sendMsg(Map map){
+    public MessageResult sendMsg(Map map) {
         String producerGroup = (String) map.get("producerGroup");
         String topic = (String) map.get("topic");
-        String msg = (String) map.get("msg");
+        List list = (List) map.get("msg");
+        Object o = list.get(0);
+        System.out.println(o);
+        JSON json = (JSON) JSON.toJSON(o);
+        String s = json.toJSONString();
+        System.out.println(s);
         RmqUtils instance = RmqUtils.getInstance();
-        instance.sendMsg(producerGroup, topic, msg);
+        return instance.sendMsg(producerGroup, topic, s);
+
+
     }
 }
