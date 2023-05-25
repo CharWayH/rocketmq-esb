@@ -1,5 +1,6 @@
 package com.charwayh.controller;
 
+import com.charwayh.annotation.CwLog;
 import com.charwayh.constant.MessageConstant;
 import com.charwayh.entity.MessageResult;
 import com.charwayh.entity.Result;
@@ -21,6 +22,7 @@ import java.util.Map;
 public class TestController {
     @Autowired
     private PubService pubService;
+
 
     @RequestMapping("/send")
     public Result sendMsg(@RequestBody Map map) {

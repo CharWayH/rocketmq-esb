@@ -17,6 +17,10 @@ management:
     web:
       exposure:
         include: "*"
+  # 不去检查es的健康状况
+  health:
+    elasticsearch:
+      enabled: false
 app:
   id: rmq-esb
 #apollo:
@@ -37,3 +41,22 @@ rocketmq:
   # 生产组名称
   producer:
     group: producer_grp_02
+
+#ES
+spring:
+  data:
+    elasticsearch:
+      cluster-nodes: 192.168.1.184:9300
+      cluster-name: elasticsearch
+#      rest:
+#        uris: http://192.168.1.184:9200
+
+
+#spring:
+#  elasticsearch:
+#    uris: http://192.168.1.184:9200
+#
+##自定义elasticsearch连接配置
+#elasticsearch:
+#  host: 192.168.200.140
+#  port: 9200
