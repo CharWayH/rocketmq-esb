@@ -11,6 +11,7 @@ import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,51 +32,29 @@ public class MQAspect {
     public void mqAspect() {
     }
 
-//    @Before("mqAspect()")
-//    public void beforeCwLog(JoinPoint joinPoint) {
-//        String methodName = joinPoint.getSignature().getName();
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-//        Date date = new Date();
-//        String time = simpleDateFormat.format(date);
-//
-//
-//    }
-//
-//    @After("mqAspect()")
-//    public void afterCwLog(JoinPoint joinPoint) {
-//        String methodName = joinPoint.getSignature().getName();
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-//        Date date = new Date();
-//        String time = simpleDateFormat.format(date);
-//        log.info(time + "调用→" + methodName + "====end======");
-//        Object[] args = joinPoint.getArgs();
-//        String msg = (String)args[2];
-//        MQLog mqLog = new MQLog();
-//        mqLog.setMsg(msg);
-//        mqLog.setTime(time);
-//        mqLogMapper.save(mqLog);
-//    }
-
     @Around("mqAspect()")
     public Object round(ProceedingJoinPoint proceedingJoinPoint){
         MessageResult messageResult = null;
         try {
             Object proceed = proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());
             messageResult = (MessageResult)proceed;
-            MQLog mqLog = new MQLog();
-            mqLog.setProducer(messageResult.getProducer());
-            mqLog.setConsumer(messageResult.getConsumer());
-            mqLog.setTopic(messageResult.getTopic());
-            mqLog.setMessageContent(messageResult.getMessageContent());
-            mqLog.setMsgId(messageResult.getMessageId());
-            mqLog.setBusinessTime(DateUtil.getCurrentTime());
-            mqLog.setBusinessType("暂未完成");
-            mqLogMapper.save(mqLog);
+            String messageId = messageResult.getMessageId();
+            // 消息id不为空才存入es中
+            if(messageId != null || !StringUtils.isEmpty(messageId)) {
+                MQLog mqLog = new MQLog();
+                Object[] args = proceedingJoinPoint.getArgs();
+                mqLog.setProducer((String) args[0]);
+                mqLog.setConsumer((String) args[1]);
+                mqLog.setTopic((String) args[2]);
+                mqLog.setMessageContent((String) args[3]);
+                mqLog.setMsgId(messageResult.getMessageId());
+                mqLog.setBusinessTime(DateUtil.getCurrentTime());
+                mqLog.setBusinessType("暂未完成");
+                mqLogMapper.save(mqLog);
+            }
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
         return messageResult;
     }
-
-
 }

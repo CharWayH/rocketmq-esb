@@ -48,3 +48,4 @@ spring:
     elasticsearch:
       cluster-nodes: 192.168.1.184:9300
       cluster-name: elasticsearch
+

@@ -1,8 +1,6 @@
 package com.charwayh.controller;
 
-import com.charwayh.annotation.CwLog;
-import com.charwayh.constant.MessageConstant;
-import com.charwayh.entity.MessageResult;
+
 import com.charwayh.entity.Result;
 import com.charwayh.service.PubService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,6 @@ public class TestController {
 
     @RequestMapping("/send")
     public Result sendMsg(@RequestBody Map map) {
-        MessageResult messageResult = pubService.sendMsg(map);
-        return new Result(true, MessageConstant.SEND_SUCCESS.toString(),messageResult);
+        return pubService.sendMsg(map);
     }
 }

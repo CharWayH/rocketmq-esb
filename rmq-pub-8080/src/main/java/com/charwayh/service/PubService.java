@@ -2,10 +2,12 @@ package com.charwayh.service;
 
 import com.alibaba.fastjson.JSON;
 import com.charwayh.annotation.MQLog;
+import com.charwayh.constant.MessageConstant;
 import com.charwayh.entity.MessageResult;
-import com.charwayh.util.RmqUtils;
+import com.charwayh.bussiness.RmqService;
+import com.charwayh.entity.Result;
+import org.apache.rocketmq.client.exception.MQClientException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,12 +21,13 @@ import java.util.Map;
 @Service
 public class PubService {
 
+    @Autowired
+    private RmqService rmqService;
 
     /**
      * 推送消息
      */
-    @MQLog
-    public MessageResult sendMsg(Map map) {
+    public Result sendMsg(Map map) {
         String producer = (String) map.get("producer");
         String consumer = (String) map.get("consumer");
         String topic = (String) map.get("topic");
@@ -32,7 +35,13 @@ public class PubService {
         Object o = list.get(0);
         JSON json = (JSON) JSON.toJSON(o);
         String msg = json.toJSONString();
-        RmqUtils rmqUtils = RmqUtils.getInstance();
-        return rmqUtils.sendMsg(producer,consumer, topic, msg);
+        MessageResult messageResult = null;
+
+        messageResult = rmqService.sendMsg(producer, consumer, topic, msg);
+        if(MessageConstant.SEND_OK.name().equals(messageResult.getResult())) {
+            return new Result(true, MessageConstant.SEND_OK.toString(), messageResult);
+        }else{
+            return new Result(false, messageResult.getResult());
+        }
     }
 }
