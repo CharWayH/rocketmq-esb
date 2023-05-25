@@ -1,6 +1,7 @@
 package com.charwayh.entity;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 
@@ -10,8 +11,16 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @Document(indexName = "mq-log")
 @Data
 public class MQLog {
-    private String id;
-    private String msg;
+    @Id
     private String msgId;
-    private String time;
+    private String producer;
+    private String consumer;
+    private String topic;
+    private String messageContent;
+    /**
+     * 业务实际 P B
+     */
+    private String businessType;
+
+    private String businessTime;
 }

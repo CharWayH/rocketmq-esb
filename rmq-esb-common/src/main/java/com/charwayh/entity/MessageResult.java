@@ -1,28 +1,23 @@
 package com.charwayh.entity;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
  * @author charwayH
  */
+@Data
 public class MessageResult implements Serializable {
     private String messageId;
 
     private String result;
 
-    public String getMessageId() {
-        return messageId;
-    }
+    private String topic;
 
-    public void setMessageId(String messageId) {
-        this.messageId = messageId;
-    }
+    private String messageContent;
 
-    public String getResult() {
-        return result;
-    }
+    private String producer;
 
-    public void setResult(String result) {
-        this.result = result;
-    }
+    private String consumer;
 }

@@ -48,15 +48,3 @@ spring:
     elasticsearch:
       cluster-nodes: 192.168.1.184:9300
       cluster-name: elasticsearch
-#      rest:
-#        uris: http://192.168.1.184:9200
-
-
-#spring:
-#  elasticsearch:
-#    uris: http://192.168.1.184:9200
-#
-##自定义elasticsearch连接配置
-#elasticsearch:
-#  host: 192.168.200.140
-#  port: 9200

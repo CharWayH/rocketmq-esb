@@ -25,15 +25,14 @@ public class PubService {
      */
     @MQLog
     public MessageResult sendMsg(Map map) {
-        String producerGroup = (String) map.get("producerGroup");
+        String producer = (String) map.get("producer");
+        String consumer = (String) map.get("consumer");
         String topic = (String) map.get("topic");
         List list = (List) map.get("msg");
         Object o = list.get(0);
-        System.out.println(o);
         JSON json = (JSON) JSON.toJSON(o);
-        String s = json.toJSONString();
-        System.out.println(s);
-        RmqUtils instance = RmqUtils.getInstance();
-        return instance.sendMsg(producerGroup, topic, s);
+        String msg = json.toJSONString();
+        RmqUtils rmqUtils = RmqUtils.getInstance();
+        return rmqUtils.sendMsg(producer,consumer, topic, msg);
     }
 }

@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
  * @author charwayH
  */
 @Repository
-public interface MQLogMapper extends ElasticsearchRepository<MQLog, Long> {
+public interface MQLogMapper extends ElasticsearchRepository<MQLog, String> {
 
 }

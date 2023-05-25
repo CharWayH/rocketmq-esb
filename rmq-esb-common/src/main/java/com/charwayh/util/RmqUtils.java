@@ -18,7 +18,6 @@ import java.io.UnsupportedEncodingException;
  */
 public class RmqUtils {
 
-
     private RmqUtils() {
     }
 
@@ -34,7 +33,7 @@ public class RmqUtils {
      * @param topic
      * @param msg
      */
-    public MessageResult sendMsg(String producerGroup, String topic, String msg) {
+    public MessageResult sendMsg(String producerGroup, String consumer, String topic, String msg) {
         DefaultMQProducer producer = new DefaultMQProducer(producerGroup);
         // 指定nameserver地址
         producer.setNamesrvAddr("192.168.1.182:9876");
@@ -43,9 +42,11 @@ public class RmqUtils {
             producer.start();
             producer.setSendMsgTimeout(10000000);
             SendResult sendResult = producer.send(new Message(topic, msg.getBytes(RemotingHelper.DEFAULT_CHARSET)));
-            System.out.println("发送完成");
             messageResult.setMessageId(sendResult.getMsgId());
             messageResult.setResult(sendResult.getSendStatus().toString());
+            messageResult.setConsumer(consumer);
+            messageResult.setMessageContent(msg);
+            messageResult.setTopic(topic);
         } catch (
                 MQClientException e) {
             e.printStackTrace();

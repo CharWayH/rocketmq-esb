@@ -3,6 +3,7 @@ package com.charwayh.annotation.aspect;
 import com.charwayh.entity.MQLog;
 import com.charwayh.entity.MessageResult;
 import com.charwayh.mapper.MQLogMapper;
+import com.charwayh.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -55,7 +56,6 @@ public class MQAspect {
 //        mqLogMapper.save(mqLog);
 //    }
 
-
     @Around("mqAspect()")
     public Object round(ProceedingJoinPoint proceedingJoinPoint){
         MessageResult messageResult = null;
@@ -63,10 +63,13 @@ public class MQAspect {
             Object proceed = proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());
             messageResult = (MessageResult)proceed;
             MQLog mqLog = new MQLog();
-            mqLog.setId(messageResult.getMessageId());
-            mqLog.setMsg("未完成");
-            mqLog.setTime(getCurrentTime());
+            mqLog.setProducer(messageResult.getProducer());
+            mqLog.setConsumer(messageResult.getConsumer());
+            mqLog.setTopic(messageResult.getTopic());
+            mqLog.setMessageContent(messageResult.getMessageContent());
             mqLog.setMsgId(messageResult.getMessageId());
+            mqLog.setBusinessTime(DateUtil.getCurrentTime());
+            mqLog.setBusinessType("暂未完成");
             mqLogMapper.save(mqLog);
         } catch (Throwable throwable) {
             throwable.printStackTrace();
@@ -74,10 +77,5 @@ public class MQAspect {
         return messageResult;
     }
 
-    public String getCurrentTime(){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        Date date = new Date();
-        return simpleDateFormat.format(date);
 
-    }
 }

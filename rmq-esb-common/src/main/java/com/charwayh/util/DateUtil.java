@@ -96,6 +96,15 @@ public final class DateUtil {
 
 
     /**
+     * 获取当前时间
+     * @return
+     */
+    public static final String getCurrentTime(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Date date = new Date();
+        return simpleDateFormat.format(date);
+    }
+    /**
      * 获取日期时间
      *
      * @return
