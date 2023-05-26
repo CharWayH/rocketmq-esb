@@ -16,8 +16,8 @@ import java.util.Map;
  * @date:2023/5/23
  */
 @RestController
-@RequestMapping("/test")
-public class TestController {
+@RequestMapping("/pub")
+public class PubController {
     @Autowired
     private PubService pubService;
 
