@@ -17,3 +17,6 @@ ES-starter版本为: 2.7.3
 
 基本功能
 推送消息后会有日志记录到es中
+
+入参消息体做鉴权
+判断消息的producer, consumer,topic在服务端是否存在

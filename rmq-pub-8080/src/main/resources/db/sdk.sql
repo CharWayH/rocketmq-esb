@@ -68,45 +68,42 @@ CREATE TABLE `sdk_queue_manager` (
                                      `qm_pid` int(10) DEFAULT '0' COMMENT '父ID',
                                      `bsc_id` int(10) DEFAULT NULL COMMENT '外键-业务系统ID',
                                      `qm_name` varchar(60) DEFAULT NULL COMMENT '队列管理器',
-                                     `qm_port` int(11) DEFAULT NULL COMMENT '端口',
-                                     `qm_channel` varchar(50) DEFAULT NULL COMMENT '通道',
-                                     `qm_ccsid` int(11) DEFAULT NULL COMMENT '字符集',
                                      `qm_ip` varchar(15) DEFAULT NULL COMMENT '队列管理器IP地址',
                                      `qm_create_time` datetime DEFAULT NULL COMMENT '创建时间',
                                      `qm_status` varchar(1) DEFAULT '2' COMMENT '是否可用（1-可用，2-不可用）新增且未测试的标记为不可用',
                                      `qm_use_hardware_load` tinyint(4) DEFAULT '0' COMMENT '是否启用硬负载，默认关闭(0关闭，1开启)',
                                      PRIMARY KEY (`qm_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=681 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='队列管理器表';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='队列管理器表';
 
 -- ----------------------------
 -- Records of sdk_queue_manager
 -- ----------------------------
-INSERT INTO `sdk_queue_manager` VALUES ('168', '0', '90', 'QMGR.P02', '4002', 'C.P02.C', '1381', '172.16.90.31', '2019-06-18 11:12:46', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('177', '0', '98', 'QMGR.P92', '4092', 'C.P92.C', '1381', '172.16.90.31', '2019-06-22 06:50:58', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('199', '0', '90', 'QMGR.S02', '5002', 'C.S02.C', '1381', '172.16.90.31', '2019-06-25 02:38:51', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('213', '0', '103', 'QMGR.S03', '5003', 'C.S03.C', '1381', '172.16.90.31', '2019-06-26 02:40:02', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('214', '0', '103', 'QMGR.P03', '4003', 'C.P03.C', '1381', '172.16.90.31', '2019-06-26 06:14:20', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('218', '0', '104', 'QMGR.P05', '4005', 'C.P05.C', '1381', '172.16.90.31', '2019-06-27 01:45:12', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('219', '0', '105', 'QMGR.P10', '4010', 'C.P10.C', '1381', '172.16.90.31', '2019-06-27 02:37:02', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('220', '0', '104', 'QMGR.S05', '5005', 'C.S05.C', '1381', '172.16.90.31', '2019-06-27 05:10:49', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('234', '0', '93', 'QMGR.P01', '4001', 'C.P01.C', '1381', '172.16.90.31', '2019-06-29 10:16:22', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('235', '0', '105', 'QMGR.S10', '5010', 'C.S10.C', '1381', '172.16.90.31', '2019-07-01 01:34:11', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('242', '0', '107', 'QMGR.P09', '4009', 'C.P09.C', '1381', '172.16.90.31', '2019-07-01 05:31:02', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('245', '0', '109', 'QMGR.P04', '4004', 'C.P04.C', '1381', '172.16.90.31', '2019-07-04 03:05:21', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('246', '0', '110', 'QMGR.P08', '4008', 'C.P08.C', '1381', '172.16.90.31', '2019-07-04 07:00:17', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('248', '0', '112', 'QMGR.P40', '4040', 'C.P40.C', '1381', '172.16.90.31', '2019-07-05 11:10:24', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('249', '0', '112', 'QMGR.S40', '5040', 'C.S40.C', '1381', '172.16.90.31', '2019-07-05 11:12:27', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('257', '0', '115', 'QMGR.S35', '5035', 'C.S35.C', '1381', '172.16.90.31', '2019-07-12 09:00:43', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('264', '0', '117', 'QMGR.S31', '5031', 'C.S31.C', '1381', '172.16.90.31', '2019-07-18 11:06:39', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('267', '0', '117', 'QMGR.P31', '4031', 'C.P31.C', '1381', '172.16.90.31', '2019-07-18 11:27:19', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('268', '0', '118', 'QMGR.S37', '5037', 'C.S37.C', '1381', '172.16.90.31', '2019-07-22 07:41:27', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('272', '0', '115', 'QMGR.P35', '4035', 'C.P35.C', '1381', '172.16.90.31', '2019-07-31 07:31:27', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('273', '0', '119', 'QMGR.P36', '4036', 'C.P36.C', '1381', '172.16.90.31', '2019-08-12 09:25:16', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('277', '0', '121', 'QMGR.P42', '4042', 'C.P42.C', '1381', '172.16.90.31', '2019-09-03 10:19:34', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('278', '0', '122', 'QMGR.P17', '4017', 'C.P17.C', '1381', '172.16.90.31', '2019-09-04 09:44:41', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('282', '0', '122', 'QMGR.S17', '5017', 'C.S17.C', '1381', '172.16.90.31', '2019-09-04 11:50:00', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('283', '0', '124', 'QMGR.P45', '4045', 'C.P45.C', '1381', '172.16.90.31', '2019-09-05 09:16:41', '1', '1');
-INSERT INTO `sdk_queue_manager` VALUES ('295', '0', '121', 'QMGR.S42', '5042', 'C.S42.C', '1381', '172.16.90.31', '2019-09-11 09:25:11', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('168', '0', '90', 'P02', '172.16.90.31', '2019-06-18 11:12:46', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('177', '0', '98', 'P92', '172.16.90.31', '2019-06-22 06:50:58', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('199', '0', '90', 'S02', '172.16.90.31', '2019-06-25 02:38:51', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('213', '0', '103', 'S03', '172.16.90.31', '2019-06-26 02:40:02', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('214', '0', '103', 'P03', '172.16.90.31', '2019-06-26 06:14:20', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('218', '0', '104', 'P05', '172.16.90.31', '2019-06-27 01:45:12', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('219', '0', '105', 'P10', '172.16.90.31', '2019-06-27 02:37:02', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('220', '0', '104', 'S05', '172.16.90.31', '2019-06-27 05:10:49', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('234', '0', '93', 'P01', '172.16.90.31', '2019-06-29 10:16:22', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('235', '0', '105', 'S10', '172.16.90.31', '2019-07-01 01:34:11', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('242', '0', '107', 'P09', '172.16.90.31', '2019-07-01 05:31:02', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('245', '0', '109', 'P04', '172.16.90.31', '2019-07-04 03:05:21', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('246', '0', '110', 'P08', '172.16.90.31', '2019-07-04 07:00:17', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('248', '0', '112', 'P40', '172.16.90.31', '2019-07-05 11:10:24', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('249', '0', '112', 'S40', '172.16.90.31', '2019-07-05 11:12:27', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('257', '0', '115', 'S35', '172.16.90.31', '2019-07-12 09:00:43', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('264', '0', '117', 'S31', '172.16.90.31', '2019-07-18 11:06:39', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('267', '0', '117', 'P31', '172.16.90.31', '2019-07-18 11:27:19', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('268', '0', '118', 'S37', '172.16.90.31', '2019-07-22 07:41:27', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('272', '0', '115', 'P35', '172.16.90.31', '2019-07-31 07:31:27', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('273', '0', '119', 'P36', '172.16.90.31', '2019-08-12 09:25:16', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('277', '0', '121', 'P42', '172.16.90.31', '2019-09-03 10:19:34', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('278', '0', '122', 'P17', '172.16.90.31', '2019-09-04 09:44:41', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('282', '0', '122', 'S17', '172.16.90.31', '2019-09-04 11:50:00', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('283', '0', '124', 'P45', '172.16.90.31', '2019-09-05 09:16:41', '1', '1');
+INSERT INTO `sdk_queue_manager` VALUES ('295', '0', '121', 'S42', '172.16.90.31', '2019-09-11 09:25:11', '1', '1');
 
 /**
 * 队列表

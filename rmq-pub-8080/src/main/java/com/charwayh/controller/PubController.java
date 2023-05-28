@@ -1,6 +1,7 @@
 package com.charwayh.controller;
 
 
+import com.charwayh.annotation.MsgCheck;
 import com.charwayh.entity.Result;
 import com.charwayh.service.PubService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class PubController {
 
 
     @RequestMapping("/send")
+    @MsgCheck
     public Result sendMsg(@RequestBody Map map) {
         return pubService.sendMsg(map);
     }

@@ -45,7 +45,6 @@ public class CacheManage {
     @Autowired
     private BusinessSystemConfMapper businessSystemConfMapper;
 
-
     /**
      * 系统编号和队列管理器对象MAP  系统编号<队列管理器ID,队列管理器对象>
      */
@@ -86,6 +85,15 @@ public class CacheManage {
      */
     public static Map<String, Integer>            sysCodeWithRunEnvCheckCacheMap   = new ConcurrentHashMap<>();
 
+    /**
+     * 队列管理器集合
+     */
+    public static Set<String> qmSet = new HashSet<>();
+
+    /**
+     * 主题集合
+     */
+    public static Set<String> topicSet = new HashSet<>();
 
     /**
      * 当前运行环境标识值
@@ -291,7 +299,8 @@ public class CacheManage {
                 List<Integer> qmId = queueManagerIdWithSysCode.containsKey(sysId) ? queueManagerIdWithSysCode.get(sysId) : new ArrayList<>();
                 qmId.add(queueManager.getQmId());
                 queueManagerIdWithSysCode.put(sysId, qmId);
-
+                // 存入qm信息到qmSet中 供鉴权时使用
+                qmSet.add(queueManager.getQmName());
             }
             if (CollectionUtils.isNotEmpty(businessSystemConfList) && businessSystemConfList.size() > 0) {
                 /**遍历业务系统配置信息，将系统ID（主键）的关系转移到系统编号*/
@@ -336,6 +345,7 @@ public class CacheManage {
                 int         queueManagerId = queue.getQmId();
                 List<Queue> cacheQueueList = cacheMap.containsKey(queueManagerId) ? cacheMap.get(queueManagerId) : new ArrayList<>();
                 cacheQueueList.add(queue);
+                // TODO 新增主题集合的添加
                 cacheMap.put(queueManagerId, cacheQueueList);
             }
         } else {

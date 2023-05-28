@@ -33,11 +33,8 @@ public class QueueManager implements Serializable {
         this.qmCreateTime = qm.getQmCreateTime ();
         this.qmStatus = qm.getQmStatus ();
         this.qmUseHardwareLoad=qm.getQmUseHardwareLoad ();
-        this.qmCcsid=qm.getQmCcsid ();
-        this.qmChannel=qm.getQmChannel ();
         this.qmCreateTime=qm.getQmCreateTime ();
         this.qmId=qm.getQmId ();
-        this.qmPort=qm.getQmPort ();
         this.qmIp=qm.getQmIp ();
     }
     public QueueManager(QueueManagerVo qm) {
@@ -47,11 +44,8 @@ public class QueueManager implements Serializable {
         this.qmCreateTime = qm.getQmCreateTime ();
         this.qmStatus = qm.getQmStatus ();
         this.qmUseHardwareLoad=qm.getQmUseHardwareLoad ();
-        this.qmCcsid=qm.getQmCcsid ();
-        this.qmChannel=qm.getQmChannel ();
         this.qmCreateTime=qm.getQmCreateTime ();
         this.qmId=qm.getQmId ();
-        this.qmPort=qm.getQmPort ();
         this.qmIp=qm.getQmIp ();
     }
 
@@ -95,21 +89,6 @@ public class QueueManager implements Serializable {
      * 队列管理器
      */
     private String qmName;
-
-    /**
-     * 端口
-     */
-    private Integer qmPort;
-
-    /**
-     * 通道
-     */
-    private String qmChannel;
-
-    /**
-     * 字符集
-     */
-    private Integer qmCcsid;
 
     /**
      * 队列管理器IP地址
