@@ -1,16 +1,18 @@
 package com.charwayh.util;
 
 //import com.ctrip.framework.apollo.util.ConfigUtil;
+import com.charwayh.util.redis.SentinelPool;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.*;
-import redis.clients.jedis.params.SetParams;
-import redis.clients.jedis.util.Pool;
+import redis.clients.util.Pool;
+
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -19,7 +21,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class RedisUtil {
     private static          Logger        logger      = LoggerFactory.getLogger(RedisUtil.class);
-    private static          Pool<Jedis>   pool        = null;
+    private static Pool<Jedis> pool        = null;
     private static volatile RedisUtil     redisUtil   = null;
     private static          Boolean       useSentinel = false;
     private static          AtomicBoolean INIT_LOCK   = new AtomicBoolean();
@@ -50,7 +52,7 @@ public class RedisUtil {
     private static Pool<Jedis> init() {
         //适配,,判断是使用[哨兵+主从模式]还是[单节点模式],默认单节点模式
         try {
-            String sentinel = null;
+            String sentinel = "false";
 //            String sentinel = ConfigUtil.getApProperties("lood.redis.sentinel");
             if (StringUtils.isNotBlank(sentinel)) {
                 useSentinel = Boolean.valueOf(sentinel);
@@ -59,17 +61,17 @@ public class RedisUtil {
             //ignore
         }
         if (useSentinel) {
-            //SentinelPool.init();
+            SentinelPool.init();
             return null;
         } else {
-            return initPool();
+          return initPool();
         }
     }
 
     //初始化普通pool
     private static JedisPool initPool() {
 //        String              redisAddress = ConfigUtil.getApProperties("lood.redis.address");
-        String              redisAddress = "192.168.1.184:6379";
+        String              redisAddress = "192.168.1.181:6379";
         Map<String, Object> configMap    = parseRedisConfig(redisAddress);
         String              ip           = (String) configMap.get(IP);
         int                 port         = (Integer) configMap.get(PORT);
@@ -79,6 +81,7 @@ public class RedisUtil {
         // 控制一个pool可分配多少个jedis实例，通过getResource()来获取；
         // 如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)。
 //        config.setMaxTotal(Integer.parseInt(ConfigUtil.getApProperties("lood.redis.maxTotal", "100")));
+        config.setMaxTotal(100);
         // 控制一个pool最多有多少个状态为idle(空闲的)的jedis实例。
         config.setMaxIdle(20);
         // 表示当borrow(引入)一个jedis实例时，最大的等待时间，如果超过等待时间，则直接抛出JedisConnectionException；
@@ -150,8 +153,7 @@ public class RedisUtil {
     //选择pool
     private static Pool<Jedis> getMasterResource() {
         if (useSentinel) {
-//            return SentinelPool.getMasterJedisPool();
-            return null;
+            return SentinelPool.getMasterJedisPool();
         } else {
             return pool;
         }
@@ -159,15 +161,14 @@ public class RedisUtil {
 
     private static Pool<Jedis> getSlaveResource() {
         if (useSentinel) {
-//            return SentinelPool.getSlaveJedisPool();
-            return null;
+            return SentinelPool.getSlaveJedisPool();
         } else {
             return pool;
         }
     }
 
     public Long incr(String key) {
-        Pool<Jedis> currentPool = getMasterResource();
+        Pool<Jedis> currentPool = RedisUtil.getMasterResource();
         Jedis       jedis       = null;
         Long        value       = null;
         try {
@@ -768,10 +769,9 @@ public class RedisUtil {
         Jedis       jedis       = null;
         try {
             jedis = currentPool.getResource();
-            SetParams params = new SetParams();
-            params.nx();
-            params.ex(secondsToExpire);
-            String statusCode = jedis.set(key, requestId, params);
+
+
+            String statusCode = jedis.setex(key, secondsToExpire, requestId);
             return "OK".equals(statusCode);
         } catch (Exception e) {
             logger.error("Method[lock]错误信息：{}", e.getMessage(), e);

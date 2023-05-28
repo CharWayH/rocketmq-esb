@@ -42,10 +42,43 @@ rocketmq:
   producer:
     group: producer_grp_02
 
-#ES
+
 spring:
   data:
+    #ES
     elasticsearch:
       cluster-nodes: 192.168.1.184:9300
       cluster-name: elasticsearch
-
+  # druid&mysql
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/rmq_esb?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+#  jpa:
+#    hibernate:
+#      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+#      ddl-auto: update
+#      naming:
+#        physical-strategy:
+    show-sql: true
+  # redis
+  redis:
+    host: 192.168.1.181
+    # Redis服务器连接端口
+    port: 6379
+    jedis:
+      pool:
+        # 连接池的最小空闲连接
+        min-idle: 0
+        # 连接池的最大空闲连接
+        max-idle: 8
+        # 连接池最大阻塞等待时间
+        max-wait: 30000
+        # 连接超时时间
+        timeout: 30000
+# 将下划线字段转换为通过命名法
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true

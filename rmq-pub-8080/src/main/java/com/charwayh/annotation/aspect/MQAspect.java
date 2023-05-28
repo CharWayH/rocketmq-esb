@@ -2,19 +2,14 @@ package com.charwayh.annotation.aspect;
 
 import com.charwayh.entity.MQLog;
 import com.charwayh.entity.MessageResult;
-import com.charwayh.mapper.MQLogMapper;
+import com.charwayh.esmapper.MQLogMapper;
 import com.charwayh.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * @author charwayH

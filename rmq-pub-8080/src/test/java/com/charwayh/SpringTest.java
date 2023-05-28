@@ -1,10 +1,7 @@
 package com.charwayh;
 
-import com.charwayh.mapper.MQLogMapper;
-import net.bytebuddy.asm.Advice;
-import org.elasticsearch.action.index.IndexRequest;
-import org.elasticsearch.client.RequestOptions;
-
+import com.charwayh.mapper.BusinessSystemConfMapper;
+import com.charwayh.upon.domain.BusinessSystemConf;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +10,7 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.List;
 
 /**
  * @author charwayH
@@ -31,6 +25,9 @@ public class SpringTest {
 //    private MQLogMapper mqLogMapper;
     @Autowired
     private ElasticsearchTemplate elasticsearchTemplate;
+
+    @Autowired
+    private BusinessSystemConfMapper businessSystemConfMapper;
 
 //    @Test
 //    public void test01() throws IOException {
@@ -62,4 +59,10 @@ public class SpringTest {
         System.out.println(elasticsearchTemplate);
 //        System.out.println(mqLogMapper);
         }
+
+    @Test
+    public void test02() throws IOException {
+        List<BusinessSystemConf> confList = businessSystemConfMapper.getConfList();
+        System.out.println(confList);
+    }
     }

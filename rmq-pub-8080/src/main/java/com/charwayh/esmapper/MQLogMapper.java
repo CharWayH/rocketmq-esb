@@ -1,4 +1,4 @@
-package com.charwayh.mapper;
+package com.charwayh.esmapper;
 
 import com.charwayh.entity.MQLog;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;

@@ -17,6 +17,8 @@
     </properties>
 
     <dependencies>
+
+
         <!--添加对common⼯程的依赖-->
         <dependency>
             <groupId>com.charwayh</groupId>
