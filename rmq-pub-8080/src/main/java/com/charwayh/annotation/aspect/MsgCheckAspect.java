@@ -34,7 +34,7 @@ public class MsgCheckAspect {
 
     @Around("msgCheckAspect()")
     public Object round(ProceedingJoinPoint proceedingJoinPoint) {
-        MessageResult messageResult = null;
+        Result result = null;
         try {
             Object[] args = proceedingJoinPoint.getArgs();
             Map map = (Map) args[0];
@@ -54,11 +54,11 @@ public class MsgCheckAspect {
 //            }
 
 
-            messageResult = (MessageResult) proceedingJoinPoint.proceed();
+            result = (Result) proceedingJoinPoint.proceed();
 
         } catch (Throwable e) {
             e.printStackTrace();
         }
-        return messageResult;
+        return result;
     }
 }
